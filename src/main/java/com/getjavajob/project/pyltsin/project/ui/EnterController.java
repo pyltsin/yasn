@@ -20,7 +20,7 @@ public class EnterController {
         this.as = as;
     }
 
-    @RequestMapping(value = {"/index", "/IndexServlet", "/"})
+    @RequestMapping(value = {"/index", "/IndexServlet"})
     public ModelAndView indexError(@RequestParam(value = "error", required = false) String errorTxt) {
         boolean error = errorTxt != null && errorTxt.equals("true");
 

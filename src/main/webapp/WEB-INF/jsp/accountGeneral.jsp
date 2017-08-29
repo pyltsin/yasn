@@ -53,10 +53,13 @@
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9" id="info">
-            <h1>Hello, world!</h1>
-            <p>Это Место для всякого разного</p>
-
+        <div class="span9">
+            <div id="wrap_info">
+                <div id="info">
+                    <h1>Hello, world!</h1>
+                    <p>Это Место для всякого разного</p>
+                </div>
+            </div>
         </div><!--/row-->
     </div><!--/span-->
 </div><!--/row-->

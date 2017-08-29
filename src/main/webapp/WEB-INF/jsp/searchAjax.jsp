@@ -71,7 +71,7 @@
     var path = "${pageContext.request.contextPath}";
 </script>
 
-<script src="${pageContext.request.contextPath}/static/js/searchAjaxPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/searchAjaxPage.js"></script>
 
 
 </body>

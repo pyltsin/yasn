@@ -33,6 +33,8 @@ function loadAccount() {
 }
 
 function setInfoAccount(data) {
+    $("#wrap_info").empty();
+    $("#wrap_info").append("<div id='info'></div>");
     $("#info").html(data.message);
 }
 
@@ -53,11 +55,11 @@ function setIsFriends(data) {
     }
 
     $("#account_addFriends").click(function () {
-        getData("/friendsRest/addFriends?id=" + login);
+        getData("friendsRest/addFriends?login=" + login);
         loadIsFriends();
     });
     $("#account_deleteFriends").click(function () {
-        getData("/friendsRest/deleteFriends?id=" + login);
+        getData("friendsRest/deleteFriends?login=" + login);
         loadIsFriends();
     });
 }
@@ -74,7 +76,31 @@ function loadAllForAccount(param) {
 }
 
 function setFriends(data) {
-    $('#info').bootstrapTable(data);
+    $("#wrap_info").empty();
+    $("#wrap_info").append("<div id='info'></div>");
+    $("#info").bootstrapTable({
+        columns: [{
+            field: 'id',
+            title: 'id'
+        }, {
+            field: 'login',
+            title: 'login',
+            formatter: formatLogin
+        }, {
+            field: 'lastName',
+            title: 'Last Name'
+        }, {
+            field: 'firstName',
+            title: 'First Name'
+        }, {
+            field: 'email',
+            title: 'email'
+        }, {
+            field: 'date',
+            title: 'Birthday'
+        }],
+        data: data
+    });
 }
 
 function loadAllFriends() {
@@ -82,9 +108,14 @@ function loadAllFriends() {
 }
 
 function loadAllForFriends() {
-    loadAccount();
+    loadAllForAccount("");
     loadAllFriends();
     loadIsFriends();
+}
+
+function formatLogin(value) {
+    var out = "<a href='#' onclick='loadAllForAccount(\"" + value + "\"" + ")'>" + value + "</a>";
+    return out;
 }
 
 $(document).ready(function () {

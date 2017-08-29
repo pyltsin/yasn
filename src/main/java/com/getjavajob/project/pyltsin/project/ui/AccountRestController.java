@@ -2,6 +2,7 @@ package com.getjavajob.project.pyltsin.project.ui;
 
 import com.getjavajob.project.pyltsin.project.common.Account;
 import com.getjavajob.project.pyltsin.project.common.to.AccountTO;
+import com.getjavajob.project.pyltsin.project.common.to.FriendTO;
 import com.getjavajob.project.pyltsin.project.service.AccountService;
 import com.getjavajob.project.pyltsin.project.ui.help.HelpAuth;
 import org.slf4j.Logger;
@@ -36,11 +37,11 @@ public class AccountRestController {
 
     @ResponseBody
     @RequestMapping(value = "/friends")
-    public Set<AccountTO> showFriends() {
+    public Set<FriendTO> showFriends() {
         Account enterAc = getAccount();
         Set<Account> friends = as.getFriends(enterAc);
-        Set<AccountTO> out = new HashSet<>();
-        friends.stream().forEach(account -> out.add(new AccountTO(account)));
+        Set<FriendTO> out = new HashSet<>();
+        friends.stream().forEach(account -> out.add(new FriendTO(account)));
         return out;
     }
 
