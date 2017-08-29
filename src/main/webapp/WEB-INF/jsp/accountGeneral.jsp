@@ -41,12 +41,12 @@
                     <li class="list-group-item list-group-item-success">Действия</li>
 
                     <li>
-                        <a class="btn btn-primary" id="account_addFriends">Добавить
+                        <a class="btn btn-primary" id="account_addFriends" onclick="functAddFriends()">Добавить
                             в
                             друзья</a></li>
 
 
-                    <li><a class="btn btn-primary" id="account_deleteFriends">Удалить
+                    <li><a class="btn btn-primary" id="account_deleteFriends" onclick="functDeleteFriends()">Удалить
                         из
                         друзей</a></li>
 
@@ -67,6 +67,7 @@
 
 <jsp:include page="getCssEnd.jsp"/>
 <script src="${pageContext.request.contextPath}/js/loadPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/sendMessage.js"></script>
 <script>
     var login = "${login}";
 </script>

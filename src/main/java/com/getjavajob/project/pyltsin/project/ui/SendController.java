@@ -12,10 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Pyltsin on 18.08.2017.
@@ -29,23 +27,6 @@ public class SendController {
 
     @Autowired
     private SendService ss;
-
-
-    @RequestMapping(value = "/sends")
-    public ModelAndView showFriends() {
-
-        Account enterAc = getAccount();
-
-        Set<? extends Account> friends;
-        friends = as.getFriends(enterAc);
-
-
-        ModelAndView modelAndView = new ModelAndView("sends");
-        modelAndView.addObject("friends", friends);
-
-
-        return modelAndView;
-    }
 
     @ResponseBody
     @RequestMapping(value = "/sendMessage")

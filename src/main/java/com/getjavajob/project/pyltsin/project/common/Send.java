@@ -26,7 +26,8 @@ public class Send implements Identified {
     @ManyToOne
     @JoinColumn(name = "TO_ACCOUNT", nullable = false)
     private Account to;
-    @Column(name = "DATE")
+
+    @Column(name = "date")
     private LocalDateTime localDateTime;
 
     public Send(int id) {

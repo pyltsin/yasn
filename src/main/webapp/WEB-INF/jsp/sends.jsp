@@ -59,7 +59,7 @@
 <script src="${pageContext.request.contextPath}/static/js/sendMessage.js"></script>
 <script>
     $(document).ready(function () {
-        var intervalID = setInterval(loadMessage, 5000);
+        var sendInterval = setInterval(loadMessage, 5000);
     });
 </script>
 </body>

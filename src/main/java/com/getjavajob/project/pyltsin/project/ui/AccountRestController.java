@@ -52,19 +52,22 @@ public class AccountRestController {
 
     @ResponseBody
     @RequestMapping(value = "/friendsRest/{type}", method = RequestMethod.GET)
-    public void changeFriends(@RequestParam("login") String login,
-                              @PathVariable(value = "type") String type) {
+    public int changeFriends(@RequestParam("login") String login,
+                             @PathVariable(value = "type") String type) {
         Account accountEnter = getAccount();
 
         if (login == null || login.equals("")) {
-            return;
+            return 0;
         }
 
         if (type.equals("addFriends")) {
             as.addFriend(accountEnter, login);
+            return 1;
         } else if (type.equals("deleteFriends")) {
             as.deleteFriend(accountEnter, login);
+            return -1;
         }
+        return 0;
     }
 
 

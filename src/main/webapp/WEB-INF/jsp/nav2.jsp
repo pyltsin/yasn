@@ -18,7 +18,7 @@
                     </a></li>
 
                 <li><a onclick="loadAllForFriends()" href="#">Друзья</a></li>
-                <li><a href="${pageContext.request.contextPath}/sends">Сообщения
+                <li><a onclick="loadAllForSends()" href="#">Сообщения
                 </a></li>
                 <li>
                     <form class="navbar-form navbar-left" name="search"

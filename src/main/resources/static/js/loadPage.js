@@ -1,3 +1,5 @@
+var sendInterval;
+
 function getData(s, f) {
     $.getJSON(s,
         function (data) {
@@ -53,65 +55,105 @@ function setIsFriends(data) {
         $("#account_addFriends").css("visibility", "visible");
         $("#account_deleteFriends").css("visibility", "hidden ");
     }
+}
 
-    $("#account_addFriends").click(function () {
-        getData("friendsRest/addFriends?login=" + login);
-        loadIsFriends();
-    });
-    $("#account_deleteFriends").click(function () {
-        getData("friendsRest/deleteFriends?login=" + login);
-        loadIsFriends();
-    });
+function functAddFriends() {
+    getData("friendsRest/addFriends?login=" + login, setIsFriends);
+}
+
+function functDeleteFriends() {
+    getData("friendsRest/deleteFriends?login=" + login, setIsFriends);
 }
 
 function loadIsFriends() {
     getData("isFriendsRest?login=" + login, setIsFriends);
 }
 
+
+function setFriends(data) {
+    if (data !== null && data.length != 0) {
+        $("#wrap_info").empty();
+        $("#wrap_info").append("<div id='info'></div>");
+        $("#info").bootstrapTable({
+            columns: [{
+                field: 'id',
+                title: 'id'
+            }, {
+                field: 'login',
+                title: 'login',
+                formatter: formatLogin
+            }, {
+                field: 'lastName',
+                title: 'Last Name'
+            }, {
+                field: 'firstName',
+                title: 'First Name'
+            }, {
+                field: 'email',
+                title: 'email'
+            }, {
+                field: 'date',
+                title: 'Birthday'
+            }],
+            data: data
+        });
+
+    } else {
+        $("#wrap_info").empty();
+        $("#wrap_info").append("<div id='info'>У вас нет друзей. Все плохо</div>");
+    }
+
+}
+
+function out() {
+    clearInterval(sendInterval);
+}
+
+
+function loadFriends(f) {
+    getData("friends", f)
+}
+
+function loadAllForFriends() {
+    out();
+    loadAllForAccount("");
+    loadFriends(setFriends);
+    loadIsFriends();
+}
+
 function loadAllForAccount(param) {
+    out();
     login = param;
     loadAccount();
     loadInfoAccount();
     loadIsFriends();
 }
 
-function setFriends(data) {
+function loadAllForSends() {
+    out();
     $("#wrap_info").empty();
-    $("#wrap_info").append("<div id='info'></div>");
-    $("#info").bootstrapTable({
-        columns: [{
-            field: 'id',
-            title: 'id'
-        }, {
-            field: 'login',
-            title: 'login',
-            formatter: formatLogin
-        }, {
-            field: 'lastName',
-            title: 'Last Name'
-        }, {
-            field: 'firstName',
-            title: 'First Name'
-        }, {
-            field: 'email',
-            title: 'email'
-        }, {
-            field: 'date',
-            title: 'Birthday'
-        }],
-        data: data
+    $("#wrap_info").append("<div id='info'>" +
+        "            <h1>Сообщения:</h1>\n" +
+        "            Кому:\n" +
+        "            <select onchange=\"loadMessage();\" id=\"loginTo\">\n" +
+        "            </select>\n" +
+        "            <p><textarea name=\"sendsArea\" id=\"sendsArea\" style=\"width: 350px; height: 350px\"></textarea></p>\n" +
+        "            <p><input maxlength=\"25\" size=\"40\" id=\"sendMessage\"></p>\n" +
+        "            <p>\n" +
+        "                <button type=\"button\" id=\"buttonSend\" onclick=\"sendMessage()\" class=\"btn btn-lg btn-primary\">Отправить\n" +
+        "                </button>\n" +
+        "            </p>\n" +
+        "</div>");
+
+    loadFriends(function (data) {
+        for (var i = 0; i < data.length; i++) {
+            var obj = data[i];
+            $("#loginTo").append("<option>" + obj.login + "</option>")
+        }
     });
+    sendInterval = setInterval(loadMessage, 5000);
 }
 
-function loadAllFriends() {
-    getData("friends", setFriends)
-}
-
-function loadAllForFriends() {
-    loadAllForAccount("");
-    loadAllFriends();
-    loadIsFriends();
-}
 
 function formatLogin(value) {
     var out = "<a href='#' onclick='loadAllForAccount(\"" + value + "\"" + ")'>" + value + "</a>";
