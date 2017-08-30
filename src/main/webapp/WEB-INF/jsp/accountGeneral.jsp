@@ -67,8 +67,12 @@
 
 <jsp:include page="getCssEnd.jsp"/>
 <script src="${pageContext.request.contextPath}/js/loadPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/loadPageChange.js"></script>
 <script src="${pageContext.request.contextPath}/js/sendMessage.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap-table-ru-RU.js"></script>
+<script src="${pageContext.request.contextPath}/js/sendSubmit.js"></script>
+<script src="${pageContext.request.contextPath}/js/addtel.js"></script>
+
 <script>
     var login = "${login}";
 </script>

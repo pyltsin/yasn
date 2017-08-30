@@ -3,10 +3,13 @@ package com.getjavajob.project.pyltsin.project.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import javax.servlet.MultipartConfigElement;
 
 /**
  * Created by Pyltsin on 28.08.2017.
@@ -52,6 +55,18 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         bean.setPrefix("/WEB-INF/jsp/");
         bean.setSuffix(".jsp");
         return bean;
+    }
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        return new MultipartConfigElement("");
+    }
+
+    @Bean(name = "multipartResolver")
+    public StandardServletMultipartResolver multipartResolver() {
+        StandardServletMultipartResolver multipartResolver
+                = new StandardServletMultipartResolver();
+        return multipartResolver;
     }
 
 //    @Bean(name = "multipartResolver")

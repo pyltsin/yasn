@@ -29,7 +29,7 @@
                         <button onclick="loadAllForFind()" class="btn btn-default">Найти</button>
                     </div>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/accountChange">Настройка</a></li>
+                <li><a href="#" onclick="loadAllForChange()">Настройка</a></li>
 
                 <li><a href="${pageContext.request.contextPath}/signout">Выход</a></li>
                 <li>Сегодня: <%= new java.util.Date() %>

@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,14 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 /**
  * Created by Pyltsin on 25.02.2017. Algo8
@@ -98,64 +95,6 @@ public class AccountController {
             return "redirect:register.html";
         }
     }
-
-    private void getAccount(Account accountForEdit, Account account, String date) {
-        String password = accountForEdit.getPassword();
-        String hashPassword = getHashPassword(password);
-        String firstName = accountForEdit.getFirstName();
-        String middleName = accountForEdit.getMiddleName();
-        String lastName = accountForEdit.getLastName();
-        String email = accountForEdit.getEmail();
-        if (password != null && !password.equals("")) {
-            account.setPassword(hashPassword);
-        }
-        account.setFirstName(firstName);
-        account.setMiddleName(middleName);
-        account.setLastName(lastName);
-        account.setEmail(email);
-        account.clearTelephones();
-
-        for (Phone phone : accountForEdit.getTelephones()) {
-            if (phone.getType() != null && phone.getTelephone() != null) {
-                account.getTelephones().add(phone);
-            }
-        }
-
-        try {
-            account.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
-        } catch (ParseException e) {
-            logger.error("getAccount" + e);
-        }
-    }
-
-
-    @Transactional
-    @RequestMapping(value = {"/ChangeServlet"}, method = RequestMethod.POST)
-    public String changeAccount(@ModelAttribute(name = "account") Account accountForEdit,
-//                                @RequestParam(value = "telephones.telephone", required = false) String[] phoneN,
-//                                @RequestParam(value = "telephones.type", required = false) String[] phoneT,
-                                @RequestParam("foto") MultipartFile mFile,
-                                @RequestParam("date") String date, HttpSession session) {
-
-        Account accountEnter = getAccount();
-
-        getAccount(accountForEdit, accountEnter, date);
-        InputStream fileFromSpring = null;
-        try {
-            fileFromSpring = mFile.getInputStream();
-        } catch (IOException e) {
-            logger.error("changeAccount" + e);
-        }
-
-        try {
-            as.editWithPicture(accountEnter, fileFromSpring);
-        } catch (IOException e) {
-            logger.error("changeAccount" + e);
-        }
-
-        return "redirect:/enter";
-    }
-
 
     @Transactional
     @RequestMapping(value = "/createXML", method = RequestMethod.GET)

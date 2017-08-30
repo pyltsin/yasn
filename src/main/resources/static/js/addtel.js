@@ -1,4 +1,30 @@
 $(function () {
+
+    $(document.body).on('click', '#signup', function (e) {
+        if (!confirm("Send data?"))
+            return false;
+
+        e.preventDefault();
+        var formData = new FormData($('#change')[0]);
+        formData.append("foto2", $('input[type=file]')[0].files[0]);
+        $.ajax({
+            type: 'POST',
+            url: 'ChangeServlet',
+            data: formData,
+            success: function () {
+                loadAllForAccount("");
+                console.log("Signup was successful");
+            },
+            error: function () {
+                console.log("Signup was unsuccessful");
+            },
+            processData: false,  // Important!
+            contentType: false,
+            enctype: 'multipart/form-data',
+            cache: false,
+        });
+    })
+
     $(document.body).on('click', '.changeType', function () {
         $(this).closest('.phone-input').find('.type-text').text($(this).text());
         $(this).closest('.phone-input').find('.type-input').val($(this).data('type-value'));
@@ -8,9 +34,9 @@ $(function () {
         $(this).closest('.phone-input').remove();
     });
 
-
-    $('.btn-add-phone').click(function () {
-        i = i + 1;
+    $(document.body).on('click', '.btn-add-phone', function () {
+        numberPhone = numberPhone + 1;
+        var i = numberPhone;
         $('.phone-list').append('' +
             '<div class="input-group phone-input">' +
             '<span class="input-group-btn">' +
@@ -38,4 +64,4 @@ $(function () {
         );
 
     });
-});
+})

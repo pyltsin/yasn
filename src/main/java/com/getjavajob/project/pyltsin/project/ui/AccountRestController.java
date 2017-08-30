@@ -1,6 +1,7 @@
 package com.getjavajob.project.pyltsin.project.ui;
 
 import com.getjavajob.project.pyltsin.project.common.Account;
+import com.getjavajob.project.pyltsin.project.common.Phone;
 import com.getjavajob.project.pyltsin.project.common.to.AccountTO;
 import com.getjavajob.project.pyltsin.project.common.to.FriendTO;
 import com.getjavajob.project.pyltsin.project.service.AccountService;
@@ -8,15 +9,23 @@ import com.getjavajob.project.pyltsin.project.ui.help.HelpAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by Pyltsin on 25.02.2017. Algo8
  */
-@RestController
+@Controller
 public class AccountRestController {
 
     private static Logger logger = LoggerFactory.getLogger(AccountRestController.class);
@@ -104,9 +113,65 @@ public class AccountRestController {
     }
 
     @ResponseBody
+    @Transactional
+    @RequestMapping(value = {"/ChangeServlet"}, method = RequestMethod.POST)
+    public String changeAccount(@ModelAttribute(name = "account") Account accountForEdit,
+                                @RequestParam(value = "foto", required = true) MultipartFile mFile,
+                                @RequestParam(value = "date", required = true) String date, final MultipartHttpServletRequest request) {
+
+        Account accountEnter = getAccount();
+
+        getAccount(accountForEdit, accountEnter, date);
+        InputStream fileFromSpring = null;
+        if (mFile != null) {
+            try {
+                fileFromSpring = mFile.getInputStream();
+            } catch (IOException e) {
+                logger.error("changeAccount" + e);
+            }
+
+
+        }
+
+        try {
+            as.editWithPicture(accountEnter, fileFromSpring);
+        } catch (IOException e) {
+            logger.error("changeAccount" + e);
+        }
+
+        return "{\"message\": \"Hello World\"}";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/accountInfoRest", method = RequestMethod.GET)
     public String accountInfoGet(@RequestParam(value = "login", required = false) String login) {
         return "{\"message\": \"Hello World\"}";
     }
+
+    private void getAccount(Account accountForEdit, Account account, String date) {
+        String firstName = accountForEdit.getFirstName();
+        String middleName = accountForEdit.getMiddleName();
+        String lastName = accountForEdit.getLastName();
+        String email = accountForEdit.getEmail();
+
+        account.setFirstName(firstName);
+        account.setMiddleName(middleName);
+        account.setLastName(lastName);
+        account.setEmail(email);
+        account.clearTelephones();
+
+        for (Phone phone : accountForEdit.getTelephones()) {
+            if (phone.getType() != null && phone.getTelephone() != null) {
+                account.getTelephones().add(phone);
+            }
+        }
+
+        try {
+            account.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+        } catch (ParseException e) {
+            logger.error("getAccount" + e);
+        }
+    }
+
 
 }
