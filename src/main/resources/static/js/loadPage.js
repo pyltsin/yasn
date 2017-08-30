@@ -16,7 +16,7 @@ function setAccountData(data) {
     $("#account_lastName").html(data.lastName);
     $("#account_birthday").html(data.date);
     $("#account_email").html(data.email);
-    $("#account_picture").attr("src", data.picture);
+    $("#account_picture").attr("src", data.picture + "#" + new Date().getTime());
 
     $("#account_phones").empty();
 
