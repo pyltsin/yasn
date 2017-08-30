@@ -120,9 +120,9 @@ public class AccountRestController {
     @ResponseBody
     @Transactional
     @RequestMapping(value = {"/ChangeServlet"}, method = RequestMethod.POST)
-    public String changeAccount(@ModelAttribute(name = "account") Account accountForEdit,
-                                @RequestParam(value = "foto") MultipartFile mFile,
-                                @RequestParam(value = "date") String date, final MultipartHttpServletRequest request) {
+    public boolean changeAccount(@ModelAttribute(name = "account") Account accountForEdit,
+                                 @RequestParam(value = "foto") MultipartFile mFile,
+                                 @RequestParam(value = "date") String date, final MultipartHttpServletRequest request) {
 
         Account accountEnter = getAccount();
 
@@ -141,7 +141,7 @@ public class AccountRestController {
             logger.error("changeAccount" + e);
         }
 
-        return "{\"message\": \"Hello World\"}";
+        return true;
     }
 
     @ResponseBody
@@ -177,7 +177,7 @@ public class AccountRestController {
 
     @ResponseBody
     @RequestMapping(value = {"/importXML"})
-    public String importXML(HttpServletRequest req, @RequestParam("fileXML") MultipartFile mFil) throws ServletException, IOException {
+    public boolean importXML(HttpServletRequest req, @RequestParam("fileXML") MultipartFile mFil) throws ServletException, IOException {
 
         Account accountEnter = getAccount();
 
@@ -205,7 +205,7 @@ public class AccountRestController {
             logger.error("changeAccount" + e);
         }
 
-        return "{\"message\": \"Hello World\"}";
+        return true;
     }
 
     private void getAccountXML(Account account, Account accountEnter) {
