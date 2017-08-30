@@ -38,9 +38,9 @@ import java.util.Set;
 
 public class AccountService extends AbstractService<Account> implements UserDetailsService {
 
-    private static Logger logger = LoggerFactory.getLogger(AccountService.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
-    private GenericDAO<Account> accountDAO;
+    private final GenericDAO<Account> accountDAO;
     private Validator validator;
 
     @Autowired
@@ -58,7 +58,6 @@ public class AccountService extends AbstractService<Account> implements UserDeta
 
     private void setValidator() {
         validator = new Validator();
-//        AbstractChecker[] checkers = {new CheckerEmail()};
         AbstractChecker[] checkers = {};
         validator.setCheckers(checkers);
     }

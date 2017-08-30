@@ -45,24 +45,6 @@
 
 </div> <!-- /container -->
 
-<%--<p>Войти в сеть</p>--%>
-<%--<form name="auth" method="post" action="InServlet">--%>
-
-
-<%--<p><b>Логин:</b>--%>
-<%--<input type="text" name="login" size="40">--%>
-<%--</p>--%>
-
-<%--<p><strong>Пароль:</strong>--%>
-<%--<input type="password" name="password" size="40"></p>--%>
-
-<%--<p><input type="checkbox" name="save" value="yes">Сохранить данные?<Br></p>--%>
-
-<%--<p><input type="submit" value="Отправить"></p>--%>
-<%--</form>--%>
-
-<%--<p><a href="register.html">Регистрация</a></p>--%>
-
 <jsp:include page="getCssEnd.jsp"/>
 
 

@@ -8,14 +8,14 @@ import com.getjavajob.project.pyltsin.project.common.Account;
  */
 public class FriendTO {
 
-    private String login;
-    private int id;
+    private final String login;
+    private final int id;
 
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String date;
-    private String email;
+    private final String firstName;
+    private final String middleName;
+    private final String lastName;
+    private final String date;
+    private final String email;
 
 
     public FriendTO(Account account) {

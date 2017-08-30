@@ -20,8 +20,8 @@ import java.util.List;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Transactional(readOnly = true)
 public abstract class AbstractService<T extends Identified> implements GenericService<T> {
-    private static Logger logger = LoggerFactory.getLogger(AbstractService.class);
-    private GenericDAO<T> dao;
+    private static final Logger logger = LoggerFactory.getLogger(AbstractService.class);
+    private final GenericDAO<T> dao;
 
 
     AbstractService(GenericDAO<T> dao) {
@@ -76,7 +76,6 @@ public abstract class AbstractService<T extends Identified> implements GenericSe
             }
         } catch (NullPointerException e) {
             logger.error("get" + e);
-//            e.printStackTrace();
         }
         return out;
     }

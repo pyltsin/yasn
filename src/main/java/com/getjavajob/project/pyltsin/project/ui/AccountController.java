@@ -8,7 +8,6 @@ import com.getjavajob.project.pyltsin.project.ui.help.HelpUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +30,7 @@ import java.text.ParseException;
 @Controller
 public class AccountController {
 
-    private static Logger logger = LoggerFactory.getLogger(AccountController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
     private AccountService as;
 
     public AccountController(AccountService as) {
@@ -98,11 +97,9 @@ public class AccountController {
     public void downloadFile(HttpServletResponse response) throws IOException {
 
         Account account = getAccount();
-        //create XML string
 
         StringWriter writer = new StringWriter();
 
-        // Marshaller
         try {
             JAXBContext context = JAXBContext.newInstance(Phone.class, Account.class);
 
@@ -113,7 +110,6 @@ public class AccountController {
         } catch (JAXBException e) {
             logger.error(e.toString());
         }
-
 
         String mimeType = "application/xml";
 
@@ -126,12 +122,6 @@ public class AccountController {
                 response.getOutputStream(), "UTF-8"))
         ) {
             bw.write(writer.toString());
-
         }
     }
-
-    private String getHashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
-    }
-
 }

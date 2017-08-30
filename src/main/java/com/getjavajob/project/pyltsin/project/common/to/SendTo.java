@@ -5,13 +5,13 @@ package com.getjavajob.project.pyltsin.project.common.to;
  */
 
 public class SendTo {
-    private String message;
+    private final String message;
 
-    private String from;
+    private final String from;
 
-    private String to;
+    private final String to;
 
-    private String localDateTime;
+    private final String localDateTime;
 
     public SendTo(String message, String from, String to, String localDateTime) {
         this.message = message;

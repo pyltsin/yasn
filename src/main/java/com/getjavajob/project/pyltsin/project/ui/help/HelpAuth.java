@@ -13,7 +13,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class HelpAuth implements Serializable {
-    public static final String PATH = "/";
     private static ThreadLocal<Integer> id;
 
     public static int getIdAccount(AccountService accountService) {
@@ -25,11 +24,6 @@ public class HelpAuth implements Serializable {
         id = new ThreadLocal<>();
         id.set(accountOut.getId());
         return accountOut.getId();
-    }
-
-    public static Account getCurrentAccount(AccountService accountService) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return accountService.getByName(user.getUsername());
     }
 
     public static Account getAccount(HttpServletRequest request) throws ParseException {

@@ -22,10 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-//                .loginPage("/")
                 .loginPage("/index")
                 .failureUrl("/index?error=true")
-//                .permitAll()
                 .defaultSuccessUrl("/account", true)
                 .and()
                 .rememberMe()
@@ -41,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register.html").permitAll()
                 .antMatchers("/RegisterServlet").permitAll()
                 .antMatchers("/index").permitAll()
-//                .antMatchers("/").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

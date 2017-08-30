@@ -82,7 +82,7 @@ public class Phone {
             this.name = name;
         }
 
-        public static boolean contain(String type) {
+        static boolean contain(String type) {
             for (int i = 0; i < Type.values().length; i++) {
                 Type type1 = Type.values()[i];
                 if (type1.name().equals(type)) {

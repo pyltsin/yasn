@@ -26,10 +26,10 @@ import java.util.List;
 @Service("sendService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SendService extends AbstractService<Send> {
-    private static Logger logger = LoggerFactory.getLogger(SendService.class);
+    private static final Logger logger = LoggerFactory.getLogger(SendService.class);
 
     private final AccountService accountService;
-    private SendDataJpaDAO sendDAO;
+    private final SendDataJpaDAO sendDAO;
 
     @Autowired
     public SendService(@Qualifier("sendDataDAO") GenericDAO<Send> dao, AccountService accountService) {

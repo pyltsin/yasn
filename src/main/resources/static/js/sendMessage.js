@@ -1,5 +1,4 @@
 function fillText(items) {
-    // console.log("items: " + items);
 
     var text = "";
     for (var i = 0; i < items.length; i++) {
@@ -7,8 +6,6 @@ function fillText(items) {
         text += findItems.from + " " +
             findItems.localDateTime + ": " + findItems.message + "\n";
     }
-    // $("#sends").innerHTML=text;
-    // $("#sends").html(text);
     $("#sendsArea").val(text);
 }
 
@@ -18,7 +15,6 @@ function loadMessage() {
 
     $.getJSON("getMessages", {"loginTo": loginTo},
         function (json) {
-            // console.log("JSON Data: " + json);
             fillText(json);
         }
     );

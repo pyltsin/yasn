@@ -3,7 +3,6 @@ package com.getjavajob.project.pyltsin.project.dao.interfaces;
 
 import com.getjavajob.project.pyltsin.project.common.interfaces.Identified;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public interface GenericDAO<T extends Identified> {
 
     void delete(T object);
 
-    void addBlob(T object, InputStream file) throws IOException;
+    void addBlob(T object, InputStream file);
 
     byte[] getBlob(int id);
 

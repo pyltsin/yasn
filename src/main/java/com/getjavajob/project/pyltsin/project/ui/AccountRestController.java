@@ -33,7 +33,7 @@ import java.util.Set;
 @Controller
 public class AccountRestController {
 
-    private static Logger logger = LoggerFactory.getLogger(AccountRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountRestController.class);
     private AccountService as;
 
     public AccountRestController(AccountService as) {
@@ -55,7 +55,7 @@ public class AccountRestController {
         Account enterAc = getAccount();
         Set<Account> friends = as.getFriends(enterAc);
         Set<FriendTO> out = new HashSet<>();
-        friends.stream().forEach(account -> out.add(new FriendTO(account)));
+        friends.forEach(account -> out.add(new FriendTO(account)));
         return out;
     }
 
@@ -121,8 +121,8 @@ public class AccountRestController {
     @Transactional
     @RequestMapping(value = {"/ChangeServlet"}, method = RequestMethod.POST)
     public String changeAccount(@ModelAttribute(name = "account") Account accountForEdit,
-                                @RequestParam(value = "foto", required = true) MultipartFile mFile,
-                                @RequestParam(value = "date", required = true) String date, final MultipartHttpServletRequest request) {
+                                @RequestParam(value = "foto") MultipartFile mFile,
+                                @RequestParam(value = "date") String date, final MultipartHttpServletRequest request) {
 
         Account accountEnter = getAccount();
 
@@ -134,10 +134,7 @@ public class AccountRestController {
             } catch (IOException e) {
                 logger.error("changeAccount" + e);
             }
-
-
         }
-
         try {
             as.editWithPicture(accountEnter, fileFromSpring);
         } catch (IOException e) {
@@ -210,7 +207,6 @@ public class AccountRestController {
 
         return "{\"message\": \"Hello World\"}";
     }
-
 
     private void getAccountXML(Account account, Account accountEnter) {
         accountEnter.setFirstName(account.getFirstName());

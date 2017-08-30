@@ -31,24 +31,6 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
                 .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
     }
 
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/").setViewName("forward:/index");
-//        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//        super.addViewControllers(registry);
-//    }
-
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-//    }
-//
-//    @Override
-//    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-//        configurer.enable();
-//    }
-
     @Bean
     public InternalResourceViewResolver jspViewResolver() {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
@@ -64,13 +46,6 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean(name = "multipartResolver")
     public StandardServletMultipartResolver multipartResolver() {
-        StandardServletMultipartResolver multipartResolver
-                = new StandardServletMultipartResolver();
-        return multipartResolver;
+        return new StandardServletMultipartResolver();
     }
-
-//    @Bean(name = "multipartResolver")
-//    public CommonsMultipartResolver getMultipartResolver() {
-//        return new CommonsMultipartResolver();
-//    }
 }

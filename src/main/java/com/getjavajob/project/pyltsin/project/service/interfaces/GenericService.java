@@ -16,7 +16,7 @@ public interface GenericService<T> {
 
     void delete(T t);
 
-    void edit(T T) throws VerificationException;
+    void edit(T T);
 
     T get(int id);
 

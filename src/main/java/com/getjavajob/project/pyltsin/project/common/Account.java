@@ -114,10 +114,6 @@ public class Account implements Identified, Pictured {
         return telephones;
     }
 
-//    public void addTelephone(String tel, String type) {
-//        telephones.add(new Phone(tel, type));
-//    }
-
     public void setTelephones(List<Phone> telephones) {
         this.telephones = telephones;
     }
@@ -212,11 +208,6 @@ public class Account implements Identified, Pictured {
     public String getName() {
         return firstName + " " + lastName;
     }
-
-//    public Phone getPhone1() {
-//        return telephones.size() >= 1 ? telephones.get(0) : null;
-//    }
-
 
     @Override
     public boolean equals(Object o) {

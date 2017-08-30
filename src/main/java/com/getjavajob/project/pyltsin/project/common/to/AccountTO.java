@@ -11,17 +11,17 @@ import java.util.List;
  */
 public class AccountTO {
 
-    private String login;
-    private int id;
+    private final String login;
+    private final int id;
 
-    private String picture;
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String date;
-    private String email;
+    private final String picture;
+    private final String firstName;
+    private final String middleName;
+    private final String lastName;
+    private final String date;
+    private final String email;
 
-    private List<Phone> telephones;
+    private final List<Phone> telephones;
 
     public AccountTO(Account account) {
         login = account.getLogin();

@@ -22,23 +22,26 @@ import java.util.List;
 public class SendController {
     private static Logger logger = LoggerFactory.getLogger(SendController.class);
 
-    @Autowired
-    private AccountService as;
+    private final AccountService as;
+
+    private final SendService ss;
+
+
 
     @Autowired
-    private SendService ss;
+    public SendController(SendService ss, AccountService as) {
+        this.ss = ss;
+        this.as = as;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/sendMessage")
     public String sendMessage(@RequestParam("loginTo") String loginTo,
                               @RequestParam("message") String message) {
         Account enterAc = getAccount();
-
         ss.saveMassage(enterAc.getLogin(), loginTo, message);
-
         return "";
     }
-
 
     @ResponseBody
     @RequestMapping(value = "/getMessages")

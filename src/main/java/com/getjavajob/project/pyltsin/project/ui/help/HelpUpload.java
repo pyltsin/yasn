@@ -24,9 +24,7 @@ public class HelpUpload {
             if (fileName == null || fileName.equals("")) {
                 return null;
             }
-
             fileContent = filePart.getInputStream();
-
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }

@@ -16,7 +16,6 @@ $(document).ready(function () {
         delay: 100,
         select: function (event, ui) {
             loadAllForAccount(ui.item.login);
-            // document.location.href = ui.item.url;
         }
     });
 

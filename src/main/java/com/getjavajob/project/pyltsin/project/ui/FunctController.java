@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -22,7 +21,7 @@ import java.nio.file.Files;
 @Controller
 public class FunctController {
 
-    private static Logger logger = LoggerFactory.getLogger(FunctController.class);
+    private static final Logger logger = LoggerFactory.getLogger(FunctController.class);
 
     private final AccountService as;
 
@@ -33,14 +32,13 @@ public class FunctController {
 
     @RequestMapping(value = "/images/{parent}/{nameFile}")
     protected void getPicture(HttpServletResponse resp, @PathVariable String parent,
-                              @PathVariable String nameFile) throws ServletException, IOException {
+                              @PathVariable String nameFile) throws IOException {
 
         File file = new File(nameFile);
 
         String name = file.getName();
 
         Files.probeContentType(file.toPath());
-
 
         byte[] content = null;
         switch (parent) {
