@@ -15,5 +15,10 @@ public interface CrudAccountRepository extends JpaRepository<Account, Integer> {
     List<Account> findByFirstNameContainsOrLastNameContainsAllIgnoreCase(String firstNamePart,
                                                                          String lastNamePart,
                                                                          Pageable pageRequest);
+
+    List<Account> findByFirstNameContainsOrLastNameContainsOrLoginContainsAllIgnoreCase(String firstNamePart,
+                                                                                        String secondNamePart,
+                                                                                        String lastNamePart,
+                                                                                        Pageable pageRequest);
 }
 

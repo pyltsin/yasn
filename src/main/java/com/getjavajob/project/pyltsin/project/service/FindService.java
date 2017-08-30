@@ -1,11 +1,12 @@
 package com.getjavajob.project.pyltsin.project.service;
 
 import com.getjavajob.project.pyltsin.project.common.Account;
-import com.getjavajob.project.pyltsin.project.common.to.ItemFind;
+import com.getjavajob.project.pyltsin.project.common.to.AccountTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,14 +23,12 @@ public class FindService {
     }
 
 
-    public List<ItemFind> findItem(String textFind, Integer start, Integer len) {
-        String text = "%" + textFind + "%";
+    public List<AccountTO> findItem(String textFind, Integer start, Integer len) {
+        String text = textFind;
         List<Account> accountList = accountService.find(text, start, len);
-        List<ItemFind> listOut = new ArrayList<>();
+        List<AccountTO> listOut = new ArrayList<>();
         if (accountList != null) {
-            for (Account account : accountList) {
-                listOut.add(new ItemFind(account.getName(), account.getLogin()));
-            }
+            accountList.stream().sorted(Comparator.comparingInt(Account::getId)).forEach(account -> listOut.add(new AccountTO(account)));
         }
 
         return listOut;

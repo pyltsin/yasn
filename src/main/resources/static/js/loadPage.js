@@ -95,14 +95,16 @@ function setFriends(data) {
                 field: 'date',
                 title: 'Birthday'
             }],
-            data: data
+            data: data,
+            pagination: true,
+            pageSize: 4,
+            locale: "ru-RU"
         });
 
     } else {
         $("#wrap_info").empty();
         $("#wrap_info").append("<div id='info'>У вас нет друзей. Все плохо</div>");
     }
-
 }
 
 function out() {
@@ -158,6 +160,53 @@ function loadAllForSends() {
 function formatLogin(value) {
     var out = "<a href='#' onclick='loadAllForAccount(\"" + value + "\"" + ")'>" + value + "</a>";
     return out;
+}
+
+function loadFind(find) {
+    getData("searchAll?textFind=" + find, setFinds);
+}
+
+function setFinds(data) {
+
+    $("#wrap_info").empty();
+    $("#wrap_info").append("<div id='info'></div>");
+    $("#info").bootstrapTable({
+        columns: [{
+            field: 'id',
+            title: 'id',
+        }, {
+            field: 'login',
+            title: 'login',
+            formatter: formatLogin,
+        }, {
+            field: 'lastName',
+            title: 'Last Name',
+        }, {
+            field: 'firstName',
+            title: 'First Name',
+
+        }, {
+            field: 'email',
+            title: 'email',
+
+        }, {
+            field: 'date',
+            title: 'Birthday',
+        }],
+        data: data,
+        pagination: true,
+        pageSize: 4,
+        locale: 'ru-RU',
+    });
+
+}
+
+function loadAllForFind() {
+    out();
+    loadAllForAccount("");
+    var find = $("#searchAjax2").val();
+    $("#searchAjax2").val("");
+    loadFind(find);
 }
 
 $(document).ready(function () {

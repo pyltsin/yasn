@@ -53,8 +53,8 @@
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9">
-            <div id="wrap_info">
+        <div class="span7">
+            <div id="wrap_info" style="width: 60%; height: 460px">
                 <div id="info">
                     <h1>Hello, world!</h1>
                     <p>Это Место для всякого разного</p>
@@ -68,6 +68,7 @@
 <jsp:include page="getCssEnd.jsp"/>
 <script src="${pageContext.request.contextPath}/js/loadPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/sendMessage.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-table-ru-RU.js"></script>
 <script>
     var login = "${login}";
 </script>

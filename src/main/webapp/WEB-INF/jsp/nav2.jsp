@@ -21,15 +21,13 @@
                 <li><a onclick="loadAllForSends()" href="#">Сообщения
                 </a></li>
                 <li>
-                    <form class="navbar-form navbar-left" name="search"
-                          action="${pageContext.request.contextPath}/search"
-                          method="get">
+                    <div class="navbar-form navbar-left">
 
                         <div class="form-group ui-widget">
                             <input id="searchAjax2" class="form-control" name="search" placeholder="Поиск по сайту">
                         </div>
-                        <button type="submit" class="btn btn-default">Найти</button>
-                    </form>
+                        <button onclick="loadAllForFind()" class="btn btn-default">Найти</button>
+                    </div>
                 </li>
                 <li><a href="${pageContext.request.contextPath}/accountChange">Настройка</a></li>
 

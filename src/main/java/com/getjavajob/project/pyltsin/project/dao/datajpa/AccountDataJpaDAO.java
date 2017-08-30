@@ -91,8 +91,8 @@ public class AccountDataJpaDAO implements GenericDAO<Account> {
 
     @Override
     public List<Account> finderEntity(String textFind, Integer by, Integer len) {
-        return crudAccountRepository.findByFirstNameContainsOrLastNameContainsAllIgnoreCase(
-                textFind, textFind, new PageRequest(by / len, len));
+        return crudAccountRepository.findByFirstNameContainsOrLastNameContainsOrLoginContainsAllIgnoreCase(
+                textFind, textFind, textFind, new PageRequest(by / len, len));
     }
 
     @Override

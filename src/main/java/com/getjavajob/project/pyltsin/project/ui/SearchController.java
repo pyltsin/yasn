@@ -1,6 +1,6 @@
 package com.getjavajob.project.pyltsin.project.ui;
 
-import com.getjavajob.project.pyltsin.project.common.to.ItemFind;
+import com.getjavajob.project.pyltsin.project.common.to.AccountTO;
 import com.getjavajob.project.pyltsin.project.service.FindService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -31,25 +30,21 @@ public class SearchController {
 
     @ResponseBody
     @RequestMapping(value = "/searchAjax")
-    public List<ItemFind> outListForAjax(@RequestParam("textFind") String textFind,
-                                         @RequestParam(value = "start", defaultValue = "0", required = false) int start,
-                                         @RequestParam(value = "len", defaultValue = "3", required = false) int len,
+    public List<AccountTO> outListForAjax(@RequestParam("textFind") String textFind,
+                                          @RequestParam(value = "start", defaultValue = "0", required = false) int start,
+                                          @RequestParam(value = "len", defaultValue = "3", required = false) int len,
 
-                                         HttpServletResponse response) {
+                                          HttpServletResponse response) {
         return getListFind(textFind, start, len);
     }
 
-    private List<ItemFind> getListFind(String textFind, Integer start, Integer len) {
-        return findService.findItem(textFind, start, len);
+    @ResponseBody
+    @RequestMapping(value = "/searchAll")
+    public List<AccountTO> outListForAjax(@RequestParam("textFind") String textFind) {
+        return getListFind(textFind, 0, 100);
     }
 
-    @RequestMapping(value = "/search")
-    public ModelAndView outListForJSP(@RequestParam(value = "search", required = false) String textFind) {
-        if (textFind == null || textFind.equals("")) {
-            return new ModelAndView("account");
-        }
-        ModelAndView modelAndView = new ModelAndView("searchAjax");
-        modelAndView.addObject("textSearch", textFind);
-        return modelAndView;
+    private List<AccountTO> getListFind(String textFind, Integer start, Integer len) {
+        return findService.findItem(textFind, start, len);
     }
 }

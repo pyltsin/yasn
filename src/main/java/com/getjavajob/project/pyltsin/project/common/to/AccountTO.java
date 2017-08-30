@@ -39,6 +39,10 @@ public class AccountTO {
         return login;
     }
 
+    public String getName() {
+        return lastName + " " + firstName;
+    }
+
     public int getId() {
         return id;
     }
