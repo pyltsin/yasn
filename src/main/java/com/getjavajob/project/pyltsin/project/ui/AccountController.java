@@ -14,16 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.text.ParseException;
 
@@ -131,48 +128,6 @@ public class AccountController {
             bw.write(writer.toString());
 
         }
-    }
-
-
-    @RequestMapping(value = {"/importXML"})
-    public ModelAndView importXML(HttpServletRequest req, @RequestParam("fileXML") MultipartFile mFil) throws ServletException, IOException {
-
-        Account accountEnter = getAccount();
-
-        Account account = null;
-        try {
-            JAXBContext context = JAXBContext.newInstance(Phone.class, Account.class);
-
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            account = (Account) unmarshaller.unmarshal(mFil.getInputStream());
-
-
-        } catch (JAXBException e) {
-            logger.error(e.toString());
-        }
-
-        if (account != null) {
-            accountEnter = as.get(accountEnter.getId());
-
-            getAccountXML(account, accountEnter);
-        }
-
-        try {
-            as.editWithPicture(accountEnter, null);
-        } catch (IOException e) {
-            logger.error("changeAccount" + e);
-        }
-
-        return new ModelAndView("redirect:/enter");
-    }
-
-    private void getAccountXML(Account account, Account accountEnter) {
-        accountEnter.setFirstName(account.getFirstName());
-        accountEnter.setMiddleName(account.getMiddleName());
-        accountEnter.setLastName(account.getLastName());
-        accountEnter.setDate(account.getDate());
-        accountEnter.setEmail(account.getEmail());
-        accountEnter.setTelephones(account.getTelephones());
     }
 
     private String getHashPassword(String password) {

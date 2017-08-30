@@ -50,6 +50,21 @@
                         из
                         друзей</a></li>
 
+                    <li><a class="btn btn-primary"
+                           href="/createXML"> Сохранить XML </a></li>
+                    <li>
+                        <div class="form-group">
+                            Загрузить XML
+                            <form action="/importXML" method="post"
+                                  enctype="multipart/form-data"
+                                  id="upload">
+                                <input type="file" class="form-control-file" name="fileXML" id="fileXML"
+                                       onchange="uploadXML()">
+                            </form>
+                        </div>
+                    </li>
+
+
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->

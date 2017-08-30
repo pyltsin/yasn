@@ -44,8 +44,7 @@ public class Account implements Identified, Pictured {
 
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true, fetch = FetchType.EAGER, targetEntity = Phone.class)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Phone.class)
     @JoinColumn(name = "ID_ACCOUNT")
     private List<Phone> telephones;
 

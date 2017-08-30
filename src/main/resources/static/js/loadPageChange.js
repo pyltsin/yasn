@@ -1,5 +1,28 @@
 var numberPhone = 0;
 
+function uploadXML() {
+    var formData = new FormData();
+    formData.append("fileXML", $("#fileXML")[0].files[0]);
+    $.ajax({
+        type: 'POST',
+        url: 'importXML',
+        data: formData,
+        success: function () {
+            loadAllForAccount("");
+            console.log("Signup was successful");
+        },
+        error: function () {
+            console.log("Signup was unsuccessful");
+        },
+        processData: false,  // Important!
+        contentType: false,
+        enctype: 'multipart/form-data',
+        cache: false,
+    });
+
+    loadAllForAccount("");
+}
+
 function loadAllForChange() {
     login = "";
     out();

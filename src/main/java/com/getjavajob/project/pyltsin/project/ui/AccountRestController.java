@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -173,5 +178,46 @@ public class AccountRestController {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = {"/importXML"})
+    public String importXML(HttpServletRequest req, @RequestParam("fileXML") MultipartFile mFil) throws ServletException, IOException {
 
+        Account accountEnter = getAccount();
+
+        Account account = null;
+        try {
+            JAXBContext context = JAXBContext.newInstance(Phone.class, Account.class);
+
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            account = (Account) unmarshaller.unmarshal(mFil.getInputStream());
+
+
+        } catch (JAXBException e) {
+            logger.error(e.toString());
+        }
+
+        if (account != null) {
+            accountEnter = as.get(accountEnter.getId());
+
+            getAccountXML(account, accountEnter);
+        }
+
+        try {
+            as.editWithPicture(accountEnter, null);
+        } catch (IOException e) {
+            logger.error("changeAccount" + e);
+        }
+
+        return "{\"message\": \"Hello World\"}";
+    }
+
+
+    private void getAccountXML(Account account, Account accountEnter) {
+        accountEnter.setFirstName(account.getFirstName());
+        accountEnter.setMiddleName(account.getMiddleName());
+        accountEnter.setLastName(account.getLastName());
+        accountEnter.setDate(account.getDate());
+        accountEnter.setEmail(account.getEmail());
+        accountEnter.setTelephones(account.getTelephones());
+    }
 }
