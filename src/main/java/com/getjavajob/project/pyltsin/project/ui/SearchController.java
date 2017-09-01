@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -28,8 +27,7 @@ public class SearchController {
     @RequestMapping(value = "/searchAjax")
     public List<AccountTO> outListForAjax(@RequestParam("textFind") String textFind,
                                           @RequestParam(value = "start", defaultValue = "0", required = false) int start,
-                                          @RequestParam(value = "len", defaultValue = "3", required = false) int len,
-                                          HttpServletResponse response) {
+                                          @RequestParam(value = "len", defaultValue = "3", required = false) int len) {
         return getListFind(textFind, start, len);
     }
 

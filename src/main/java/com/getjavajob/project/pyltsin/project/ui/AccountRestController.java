@@ -188,7 +188,6 @@ public class AccountRestController {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             account = (Account) unmarshaller.unmarshal(mFil.getInputStream());
 
-
         } catch (JAXBException e) {
             logger.error(e.toString());
         }
