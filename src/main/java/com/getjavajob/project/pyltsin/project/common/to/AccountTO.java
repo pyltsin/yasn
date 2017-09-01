@@ -3,13 +3,14 @@ package com.getjavajob.project.pyltsin.project.common.to;
 
 import com.getjavajob.project.pyltsin.project.common.Account;
 import com.getjavajob.project.pyltsin.project.common.Phone;
+import com.getjavajob.project.pyltsin.project.common.interfaces.Identified;
 
 import java.util.List;
 
 /**
  * Created by Pyltsin on 28.11.2016. Algo8
  */
-public class AccountTO {
+public class AccountTO implements Identified {
 
     private final String login;
     private final int id;

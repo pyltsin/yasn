@@ -2,7 +2,7 @@ package com.getjavajob.project.pyltsin.project.service;
 
 import com.getjavajob.project.pyltsin.project.common.Account;
 import com.getjavajob.project.pyltsin.project.common.Send;
-import com.getjavajob.project.pyltsin.project.common.to.SendTo;
+import com.getjavajob.project.pyltsin.project.common.to.SendTO;
 import com.getjavajob.project.pyltsin.project.dao.datajpa.GenericDAO;
 import com.getjavajob.project.pyltsin.project.dao.datajpa.SendDataJpaDAO;
 import com.getjavajob.project.pyltsin.project.service.exception.VerificationException;
@@ -55,14 +55,14 @@ public class SendService extends AbstractService<Send> {
         }
     }
 
-    public List<SendTo> getMessages(String loginFrom, String loginTo) {
+    public List<SendTO> getMessages(String loginFrom, String loginTo) {
         Account from = accountService.getByName(loginFrom);
         Account to = accountService.getByName(loginTo);
 
         List<Send> sends = sendDAO.getSends(from, to, 20);
 
-        List<SendTo> out = new ArrayList<>();
-        sends.forEach(send -> out.add(new SendTo(send.getMessage(), send.getFrom().getName(),
+        List<SendTO> out = new ArrayList<>();
+        sends.forEach(send -> out.add(new SendTO(send.getMessage(), send.getFrom().getName(),
                 send.getTo().getName(), send.getLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))));
         return out;
     }

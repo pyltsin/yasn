@@ -1,7 +1,7 @@
 package com.getjavajob.project.pyltsin.project.ui;
 
 import com.getjavajob.project.pyltsin.project.common.Account;
-import com.getjavajob.project.pyltsin.project.common.to.SendTo;
+import com.getjavajob.project.pyltsin.project.common.to.SendTO;
 import com.getjavajob.project.pyltsin.project.service.AccountService;
 import com.getjavajob.project.pyltsin.project.service.SendService;
 import com.getjavajob.project.pyltsin.project.ui.help.HelpAuth;
@@ -45,7 +45,7 @@ public class SendController {
 
     @ResponseBody
     @RequestMapping(value = "/getMessages")
-    public List<SendTo> getMessages(@RequestParam("loginTo") String loginTo) {
+    public List<SendTO> getMessages(@RequestParam("loginTo") String loginTo) {
         Account enterAc = getAccount();
 
         return ss.getMessages(enterAc.getLogin(), loginTo);

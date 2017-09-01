@@ -4,7 +4,7 @@ package com.getjavajob.project.pyltsin.project.common.to;
  * Created by Pyltsin on 06.01.2017. Algo8
  */
 
-public class SendTo {
+public class SendTO {
     private final String message;
 
     private final String from;
@@ -13,7 +13,7 @@ public class SendTo {
 
     private final String localDateTime;
 
-    public SendTo(String message, String from, String to, String localDateTime) {
+    public SendTO(String message, String from, String to, String localDateTime) {
         this.message = message;
         this.from = from;
         this.to = to;
