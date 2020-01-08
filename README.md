@@ -30,5 +30,3 @@ SQL ddl is located in the `dao/test/db/*.sql`
 
 --  
 **Пыльцин Михаил**  
-Тренинг getJavaJob,   
-[http://www.getjavajob.com](http://www.getjavajob.com)
